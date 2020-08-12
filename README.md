@@ -37,7 +37,7 @@ set of features. The average AUC scores from 100 runs of this process are shown 
 Figure 3 script is self-descriptive. Here, we have plotted AUC curve based on optimum imputation features (17F) model and 
 top three features from RFE 3F model. Also calibration of the plot has been done by using ‘calibration_curve’ library from sklearn.
     
-## Folder Figure 4, 
+## Folder Figure 4: 
 
 Figure 4 script is self-descriptive, here we have ran RFE simulation simulations for top three features. This script generate
 three independent hundred simulation of RFE model for four classifiers by using 17 features and selected top three features and
