@@ -28,11 +28,19 @@
  
 ## RFE model: 
 
- In figure 2B, we used a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, we evaluated
- the performance of the four classification algorithms with different number of features selected from the full set of features. The average
- AUC scores from 100 runs of this process are shown here, along with error bars.
+    In figure 2B, we used a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, we evaluated
+    the performance of the four classification algorithms with different number of features selected from the full set of features. The average
+    AUC scores from 100 runs of this process are shown here, along with error bars.
  
-Figure 3, script is self-descriptive. Here, we have plotted AUC curve based on optimum imputation features (17F) model and top three features 
-   from RFE 3F model.  Also calibration      of the plot has been done by using ‘calibration_curve’ library from sklearn.
-Figure 4, script is self-descriptive, here we have ran RFE simulation simulations for top three features. This script generate three independent hundred simulation of RFE model      for four classifiers by using 17 features and selected top three features and saved in a csv file and plot horizontal bar graphs. One can develop figure 4A of the paper by        choosing single seed of 300 runs or by summation of three runs output data.
+## Folder Figure 3: 
+
+    Figure 3 script is self-descriptive. Here, we have plotted AUC curve based on optimum imputation features (17F) model and top three features 
+    from RFE 3F model.  Also calibration      of the plot has been done by using ‘calibration_curve’ library from sklearn.
+    
+## Folder Figure 4, 
+
+   Figure 4 script is self-descriptive, here we have ran RFE simulation simulations for top three features. This script generate three independent 
+   hundred simulation of RFE model for four classifiers by using 17 features and selected top three features and saved in a csv file and plot horizontal
+   bar graphs. One can develop figure 4A of the paper by choosing single seed of 300 runs or by summation of three runs output data.
+   
 Characteristic table p-value and odd ratio calculation is provided by (‘table_pval_effect_size.py’), we used Cohen’s_d to determine the effect size of the experiment and ttest to calculate p-value.  To site this paper (doi: https://doi.org/10.1101/2020.05.19.20103036)
