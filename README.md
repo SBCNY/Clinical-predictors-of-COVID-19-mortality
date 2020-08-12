@@ -39,10 +39,11 @@
     
 ## Folder Figure 4, 
 
-    Figure 4 script is self-descriptive, here we have ran RFE simulation simulations for top three features. This script generate three 
-    independent hundred simulation of RFE model for four classifiers by using 17 features and selected top three features and saved in a
-    csv file and plot horizontal bar graphs. One can develop figure 4A of the paper by choosing single seed of 300 runs or by summation 
-    of three runs output data.
+    Figure 4 script is self-descriptive, here we have ran RFE simulation simulations for top three features. This script generate
+    three independent hundred simulation of RFE model for four classifiers by using 17 features and selected top three features and
+    saved in a csv file and plot horizontal bar graphs. One can develop figure 4A of the paper by choosing single seed of 300 runs 
+    or by summation of three runs output data.
    
-Characteristic table p-value and odd ratio calculation is provided by (‘table_pval_effect_size.py’), we used Cohen’s_d to determine the 
-effect size of the experiment and ttest to calculate p-value.  To site this paper (doi: https://doi.org/10.1101/2020.05.19.20103036)
+    Characteristic table p-value and odd ratio calculation is provided by (‘table_pval_effect_size.py’), we used Cohen’s_d to 
+    determine the effect size of the experiment and ttest to calculate p-value.  
+    To site this paper (doi: https://doi.org/10.1101/2020.05.19.20103036)
