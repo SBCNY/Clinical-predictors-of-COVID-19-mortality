@@ -2,7 +2,7 @@
 
 Clinical predictors of COVID-19 mortality: 
     The scripts in this repository is used to reproduce the results for “clinical predictors of COVID-19 mortality”. 
-    Program files are shared in the folders by figures name (Figure 2, Figure 3, and Figure 4). In folder Figure 1. 
+    Program files are shared in the folders by figures name (Figure 2, Figure 3, and Figure 4).  
     Setup environments: This project is developed in Jupyter Notebook environment. So the following are required:
           •	Python 3.7.3
           •	Pandas 0.24.2
