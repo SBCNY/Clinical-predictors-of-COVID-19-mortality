@@ -12,6 +12,8 @@ This project is developed in Jupyter Notebook environment. So the following are 
 	Scikit-learn 0.20.3
 	Scipy 1.2.1
 	Matplotlib 3.1.1
+	seaborn 0.9.0
+	xgboost 0.90
           
 ## Data: 
 
