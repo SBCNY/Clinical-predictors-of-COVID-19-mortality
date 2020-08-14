@@ -55,7 +55,7 @@ To analyze your own data with this pipeline, a few variables have to be configur
 
 `continuous_feat` is the list of continuous feature(s), since we will impute the continuous feature and categorical feature in different way.
 
-## Data: 
+## COVID-19 Data: 
 
 Anonymized electronic medical record (EMR) data from patients diagnosed with COVID-19 within the Mount Sinai Hospital System, 
 New York, NY from March 9th through April 6th, 2020 were included in the study. On 6th April, 5051 COVID-19 positive patients 
