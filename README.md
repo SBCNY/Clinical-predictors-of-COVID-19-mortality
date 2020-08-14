@@ -1,6 +1,11 @@
 # Clinical predictors of COVID-19 mortality:
 
-The scripts in this repository is used to reproduce the results for “clinical predictors of COVID-19 mortality”. 
+The scripts in this repository is used to reproduce the results for ["Clinical predictors of COVID-19 mortality”](https://www.medrxiv.org/content/10.1101/2020.05.19.20103036v1). 
+
+To cite this paper:
+	
+	Yadaw, A., Li, Y.c., Bose, S., Iyengar, R., Bunyavanich, S., & Pandey, G. 2020. Clinical predictors of COVID-19 mortality. medRxiv doi:10.1101/2020.05.19.20103036
+	
 Program files are shared in the folders by figures name (Figure 2, Figure 3, and Figure 4). 
     
 ## Setup environments: 
@@ -15,6 +20,41 @@ This project is developed in Jupyter Notebook environment. So the following are 
 	seaborn 0.9.0
 	xgboost 0.90
           
+	  
+## Configuration
+
+To analyze your own data with this pipeline, a few variables have to be configured in `config.ini`. The default configuration is shown as follow:
+
+	[FileIO]
+	df_train = train_features_data.csv
+	df_test = test_features_data.csv
+	y_train = train_labels_data.csv
+	y_test = test_labels_data.csv
+	predicted_scores = Predicted_&_actual_scores_3f_17F_test1.csv, Predicted_&_actual_scores_3f_17F_test2.csv
+	rfe_result_csv = RFE_result_RL.csv
+
+	[Continuous_feat]
+	continuous_feat = AGE, BMI, TEMPERATURE, TEMP_MAX, SYSTOLIC_BP,DIASTOLIC_BP, O2_SAT, O2SAT_MIN
+
+### Under the section of `[FileIO]`:
+
+`df_train` is the file containing the features of training data (not including the outcome/label), which is in csv format
+
+`df_test` is the file containing the features of testing data (not including the outcome/label), which is in csv format
+
+`y_train` is the file containing the outcome/label of training data, which is in csv format
+
+`y_test` is the file containing the outcome/label of testing data, which is in csv format
+
+`predicted_scores` is the filename you would like to output the prediction scores of testing data to, where the number of filenames should be equal to the testing data you put, and format in csv
+
+`rfe_result_csv` is the filename you would like to output the result of recursive feature elimination
+
+
+### Under the section of `[Continuous_feat]`:
+
+`continuous_feat` is the list of continuous feature(s), since we will impute the continuous feature and categorical feature in different way.
+
 ## Data: 
 
 Anonymized electronic medical record (EMR) data from patients diagnosed with COVID-19 within the Mount Sinai Hospital System, 
