@@ -23,7 +23,7 @@ This project is developed in Jupyter Notebook environment. So the following are 
 	  
 ## Configuration
 
-To analyze your own data with this pipeline, a few variables have to be configured in `config.ini`. The default configuration is shown as follow:
+To analyze your own data with this pipeline, a few variables have to be configured in `config.ini`. The default configuration is shown as below:
 
 	[FileIO]
 	df_train = train_features_data.csv
