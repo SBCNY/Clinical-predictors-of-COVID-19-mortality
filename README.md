@@ -1,12 +1,11 @@
 # Clinical predictors of COVID-19 mortality:
 
-The scripts in this repository is used to reproduce the results for ["Clinical predictors of COVID-19 mortality”](https://www.medrxiv.org/content/10.1101/2020.05.19.20103036v1). 
+The scripts in this repository is used to reproduce the results for ["Clinical predictors of COVID-19 mortality”](https://www.medrxiv.org/content/10.1101/2020.05.19.20103036v1), which is avaliable on MedRxiv now. 
 
 To cite this paper:
 	
 	Yadaw, A., Li, Y.c., Bose, S., Iyengar, R., Bunyavanich, S., & Pandey, G. 2020. Clinical predictors of COVID-19 mortality. medRxiv doi:10.1101/2020.05.19.20103036
 	
-Program files are shared in the folders by figures name (Figure 2, Figure 3, and Figure 4). 
     
 ## Setup environments: 
 This project is developed in Jupyter Notebook environment. So the following are required:
@@ -21,20 +20,68 @@ This project is developed in Jupyter Notebook environment. So the following are 
 	xgboost 0.90
           
 	  
+## Dataset:
+Due to privacy policy of Mount Sinai Hospital System, we cannot open the covid19 dataset to public. Instead, we are using a subset of public dataset: [UCI Diabetes](https://archive.ics.uci.edu/ml/datasets/diabetes+130-us+hospitals+for+years+1999-2008)
+
 ## Configuration
 
-To analyze your own data with this pipeline, a few variables have to be configured in `config.ini`. The default configuration is shown as below:
+To analyze your own data with this pipeline, a few variables have to be configured in `config_diabetes.ini`, (or your own configuration file, by editing the 1st line: `config_fn = 'config_diabetes.ini'` of the code cell under `Define filename of configuration and read configuration`). The default configuration is shown as below:
 
 	[FileIO]
+	# File path of your data
+	file_path = ./diabetes/
+	# Directory under 'file_path' containing 'df_train', 'df_test', 'y_train', 'y_test', 'other_test_feature', 'other_test_label'
+	data_path = data/
+	# Directory for generated figures, which will be created under 'file_path' if not exists
+	plot_path = plot/
+	# Directory for result files, which will be created under 'file_path' if not exists
+	result_path = result/
+	# The fileneame of raw data you would like to analyse, which should be put under the directory of'data_path' inside 'file_path'.
+	raw_filename = diabetics_small_set.csv
 	df_train = train_features_data.csv
 	df_test = test_features_data.csv
 	y_train = train_labels_data.csv
 	y_test = test_labels_data.csv
-	predicted_scores = Predicted_&_actual_scores_3f_17F_test1.csv, Predicted_&_actual_scores_3f_17F_test2.csv
-	rfe_result_csv = RFE_result_RL.csv
+	rfe_result_csv = RFE_result.csv
+	other_test_feature = None
+	other_test_label = None
+	predicted_score_format = prediction_scores_test{}.csv
 
-	[Continuous_feat]
-	continuous_feat = AGE, BMI, TEMPERATURE, TEMP_MAX, SYSTOLIC_BP,DIASTOLIC_BP, O2_SAT, O2SAT_MIN
+	[Preprocessing]
+	# The columns you would like to drop
+	columns_to_drop = encounter_id, payer_code
+	# The column name to distinguish patient
+	patient_id_column = patient_nbr
+	# The column name you would like to keep with only matched with certain value
+	keep_only_matched_patient_column = 
+	# Keep only this value of the above column
+	keep_only_matched_patient_value = 
+	# The column you would like to predict
+	outcome_column = readmitted
+	outcome_pos_value = >30, <30
+	outcome_neg_value = NO
+	# These value will be converted to np.nan as missing value
+	unknown_value = ?
+	# The values you would like to replaced with
+	value_replacing_dictionary = {'[0-10)': 5, '[10-20)': 15, '[20-30)':25, '[30-40)': 35, '[40-50)': 45,
+				'[50-60)': 55, '[60-70)': 65, '[70-80)': 75, '[80-90)': 85, '[90-100)': 95, 
+				'[0-25)': 12.5, '[25-50)': 37.5, '[50-75)': 67.5, '[75-100)': 87.5,
+				'[100-125)': 112.5, '[125-150)': 137.5, '[150-175)': 162.5, '[175-200)': 187.5,
+				'>200': 212.5}
+
+
+
+	[Continuous_feature]
+	# Continuous feature of 'df_train'
+	continuous_feature = age, weight, time_in_hospital, num_lab_procedures, num_procedures, num_medications, number_outpatient, number_inpatient, number_emergency, number_diagnoses
+
+	[RFE]
+	number_of_feature_to_select = ignore
+	step_size = 5
+
+	[Model_comparison]
+	# Number of subset feature to choose, a parameter for Section 3.2 and Section 4, if there is any update of this parameter, you can rerun the script from Section 3.2
+	number_of_subset_features = 6
 
 ### Under the section of `[FileIO]`:
 
