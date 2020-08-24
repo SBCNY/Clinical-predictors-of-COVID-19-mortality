@@ -37,100 +37,38 @@ To analyze your own data with this pipeline, a few variables have to be configur
 2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
 
 
-3. Run the whole notebook (by the fast forward like button⏩  in the menu bar.)
-
-The default configuration is shown as below:
-
-	[FileIO]
-	# File path of your data
-	file_path = ./diabetes/
-	# Directory under 'file_path' containing 'df_train', 'df_test', 'y_train', 'y_test', 'other_test_feature', 'other_test_label'
-	data_path = data/
-	# Directory for generated figures, which will be created under 'file_path' if not exists
-	plot_path = plot/
-	# Directory for result files, which will be created under 'file_path' if not exists
-	result_path = result/
-	# The fileneame of raw data you would like to analyse, which should be put under the directory of'data_path' inside 'file_path'.
-	raw_filename = diabetics_small_set.csv
-	df_train = train_features_data.csv
-	df_test = test_features_data.csv
-	y_train = train_labels_data.csv
-	y_test = test_labels_data.csv
-	rfe_result_csv = RFE_result.csv
-	other_test_feature = None
-	other_test_label = None
-	predicted_score_format = prediction_scores_test{}.csv
-
-	[Preprocessing]
-	# The columns you would like to drop
-	columns_to_drop = encounter_id, payer_code
-	# The column name to distinguish patient
-	patient_id_column = patient_nbr
-	# The column name you would like to keep with only matched with certain value
-	keep_only_matched_patient_column = 
-	# Keep only this value of the above column
-	keep_only_matched_patient_value = 
-	# The column you would like to predict
-	outcome_column = readmitted
-	outcome_pos_value = >30, <30
-	outcome_neg_value = NO
-	# These value will be converted to np.nan as missing value
-	unknown_value = ?
-	# The values you would like to replaced with
-	value_replacing_dictionary = {'[0-10)': 5, '[10-20)': 15, '[20-30)':25, '[30-40)': 35, '[40-50)': 45,
-				'[50-60)': 55, '[60-70)': 65, '[70-80)': 75, '[80-90)': 85, '[90-100)': 95, 
-				'[0-25)': 12.5, '[25-50)': 37.5, '[50-75)': 67.5, '[75-100)': 87.5,
-				'[100-125)': 112.5, '[125-150)': 137.5, '[150-175)': 162.5, '[175-200)': 187.5,
-				'>200': 212.5}
-
-
-
-	[Continuous_feature]
-	# Continuous feature of 'df_train'
-	continuous_feature = age, weight, time_in_hospital, num_lab_procedures, num_procedures, num_medications, number_outpatient, number_inpatient, number_emergency, number_diagnoses
-
-	[RFE]
-	number_of_feature_to_select = ignore
-	step_size = 5
-
-	[Model_comparison]
-	# Number of subset feature to choose, a parameter for Section 3.2 and Section 4, if there is any update of this parameter, you can rerun the script from Section 3.2
-	number_of_subset_features = 6
+3. Run the whole notebook (by the fast forward like button⏩  in the toolbar.)
 
 ## COVID-19 Data: 
 
-Anonymized electronic medical record (EMR) data from patients diagnosed with COVID-19 within the Mount Sinai Hospital System, 
-New York, NY from March 9th through April 6th, 2020 were included in the study. On 6th April, 5051 COVID-19 positive patients 
-treated at the Mount Sinai Health System, data split in training set and test set.
+Anonymized electronic medical record (EMR) data from patients diagnosed with COVID-19 within the Mount Sinai Hospital System, New York, NY from March 9th through April 6th, 2020 were included in the study. On 6th April, 5051 COVID-19 positive patients treated at the Mount Sinai Health System, data split in training set and test set.
 
-# Pipeline
+## Pipeline
+Here is a short summary of the mechanism of our pipeline.
 
-## 1.Preprocessing
+### 1. Preprocessing
+This part is converting the raw data to be capable in the following steps:
+* Irrelevant columns defined in `[Preprocessing]columns_to_drop` of `config_diabetes.ini` will be dropped out. 
+* Column defined in `[Preprocessing]patient_id_column` is used as patient index, to remove duplicate patient entry. 
+* If you would like to keep only patients matching with a value of a column, you can define `keep_only_matched_patient_column` and `keep_only_matched_patient_value` (which are blanks under the configuration of this dataset). 
+* The outcome array will be pulled out, by the variable `outcome_column`, and binarized by matching the value of `outcome_pos_value` and `outcome_neg_value`  defined respectively in the configuration file. 
+* For the strings which are considered as missing value, can be defined `unknown_value`. We are also able to replace the value to desired value globally by dictionary defined in configuration by `value_replacing_dictionary`.
+ * After these steps, label encoding will be performed to categorical columns. Finally, the preprocessed dataset will be splited into training (development set)and testing set (80% and 20% respectively). 
 
-## 2.Missing Value Imputation: 
+### 2. Missing Value Imputation: 
 
-In figure 2A, we have first attempted to find the optimal percentage of missing values in each variable across the patients in 
-the development set (missing value level) that could be imputed and lead to more accurate prediction. In this script, we have 
-pre-processed the development set data and split it randomly 100 times into training and validation set. Used four different 
-classifiers (Random Forest, Logistic Regression, Support Vector Machine and XGBoost) with increment of 5% missing value imputation.
+* We have first attempted to find the optimal percentage of missing values in each variable across the patients in the development set (missing value level) that could be imputed and lead to more accurate prediction. In this step, we have pre-processed the development set data and split it randomly 100 times into training and validation set. Used four different classifiers (Random Forest, Logistic Regression, Support Vector Machine and XGBoost) with increment of 5% missing value imputation. The performance is visualized at the bottom of the notebook (figure 2A)
  
-## 3.RFE model building: 
+### 3. Recursive Feature Elimination (RFE) model building: 
 
-In figure 2B, we used a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, 
-we evaluated the performance of the four classification algorithms with different number of features selected from the full
-set of features. The average AUC scores from 100 runs of this process are shown here, along with error bars.
+* We used a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, we evaluated the performance of the four classification algorithms with different number of features selected from the full set of features. 
+
+* The list of number of features can be defined in two ways: 
+  * a. `[RFE]number_of_feature_to_select` which is a list of number, separated by `,`
+  * b. `[RFE]step_size` which is a integer, as the step size of list from 1 to total number of features.
+
+* The average AUC scores from 100 runs of this process are shown in figure 2B, along with error bars. 
  
-## 4.Model Testing:
-
-
-## Folder Figure 3: 
-
-Figure 3 script is self-descriptive. Here, we have plotted AUC curve based on optimum imputation features (17F) model and 
-top three features from RFE 3F model. Also calibration of the plot has been done by using ‘calibration_curve’ library from sklearn.
+### 4. Model Testing:
+2 Models will be tested, the (XGBoost) classifier trained by full set of features, and the subset of features ('n' features selected by RFE, where 'n' is defined in `[Model_comparison]number_of_subset_features`.) ROC curve (and its AUC) and calibration curve of testing set can be visualized in figure 3.
     
-## Folder Figure 4: 
-
-Figure 4 script is self-descriptive, here we have ran RFE simulation simulations for top three features. This script generate
-three independent hundred simulation of RFE model for four classifiers by using 17 features and selected top three features and
-saved in a csv file and plot horizontal bar graphs. One can develop figure 4A of the paper by choosing single seed of 300 runs 
-or by summation of three runs output data.
