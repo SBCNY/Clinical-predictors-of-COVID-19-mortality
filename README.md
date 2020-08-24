@@ -31,8 +31,8 @@ To analyze your own data with this pipeline, a few variables have to be configur
 
 ## Testing the code
 * 1. Download the code by:
-
-       git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git
+		
+		`git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git`
 
 * 2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
 
@@ -64,8 +64,8 @@ This part is converting the raw data to be capable in the following steps:
 * We used a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, we evaluated the performance of the four classification algorithms with different number of features selected from the full set of features. 
 
 * The list of number of features can be defined in two ways: 
-  * a. `[RFE]number_of_feature_to_select` which is a list of number, separated by `,`
-  * b. `[RFE]step_size` which is a integer, as the step size of list from 1 to total number of features.
+  * a. `[RFE]number_of_feature_to_select` which should be a list of number, separated by `,`. If you are going to use this way, please set it to be `ignore`
+  * b. `[RFE]step_size` which should be a integer, as the step size of list from 1 to total number of features. If you are going to use this way, please set it to be `ignore`
 
 * The average AUC scores from 100 runs of this process are shown in figure 2B, along with error bars. 
  
