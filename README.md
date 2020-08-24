@@ -7,7 +7,7 @@ To cite this paper:
 	Yadaw, A., Li, Y.c., Bose, S., Iyengar, R., Bunyavanich, S., & Pandey, G. 2020. Clinical predictors of COVID-19 mortality. medRxiv doi:10.1101/2020.05.19.20103036
 	
     
-## Setup environments: 
+## Setup environments
 This project is developed in Jupyter Notebook environment. So the following are required:
 
 	Python 3.7.3
@@ -53,11 +53,11 @@ This part is converting the raw data to be capable in the following steps:
 * For the strings which are considered as missing value, can be defined `unknown_value`. We are also able to replace the value to desired value globally by dictionary defined in configuration by `value_replacing_dictionary`.
  * After these steps, label encoding will be performed to categorical columns. Finally, the preprocessed dataset will be splited into training (development set)and testing set (80% and 20% respectively). 
 
-### 2. Missing Value Imputation: 
+### 2. Missing Value Imputation
 
 * We have first attempted to find the optimal percentage of missing values in each variable across the patients in the development set (missing value level) that could be imputed and lead to more accurate prediction. In this step, we have pre-processed the development set data and split it randomly 100 times into training and validation set. Used four different classifiers (Random Forest, Logistic Regression, Support Vector Machine and XGBoost) with increment of 5% missing value imputation. The performance is visualized at the bottom of the notebook (figure 2A)
  
-### 3. Recursive Feature Elimination (RFE) model building: 
+### 3. Recursive Feature Elimination (RFE) model building 
 
 * We used a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, we evaluated the performance of the four classification algorithms with different number of features selected from the full set of features. 
 
@@ -67,6 +67,6 @@ This part is converting the raw data to be capable in the following steps:
 
 * The average AUC scores from 100 runs of this process are shown in figure 2B, along with error bars. 
  
-### 4. Model Testing:
+### 4. Model Testing
 2 Models will be tested, the (XGBoost) classifier trained by full set of features, and the subset of features ('n' features selected by RFE, where 'n' is defined in `[Model_comparison]number_of_subset_features`.) ROC curve (and its AUC) and calibration curve of testing set can be visualized in figure 3.
     
