@@ -36,7 +36,7 @@ To analyze your own data with this pipeline, a few variables have to be configur
 
 2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server))
 
-3. Run the whole notebook (by the fast forward like button ⏩  in the menu bar.
+3. Run the whole notebook (by the fast forward like button ⏩ \t in the menu bar.
 
 The default configuration is shown as below:
 
