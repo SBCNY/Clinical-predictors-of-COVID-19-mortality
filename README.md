@@ -102,19 +102,26 @@ Anonymized electronic medical record (EMR) data from patients diagnosed with COV
 New York, NY from March 9th through April 6th, 2020 were included in the study. On 6th April, 5051 COVID-19 positive patients 
 treated at the Mount Sinai Health System, data split in training set and test set.
 
-## Missing Value Imputation: 
+# Pipeline
+
+## 1.Preprocessing
+
+## 2.Missing Value Imputation: 
 
 In figure 2A, we have first attempted to find the optimal percentage of missing values in each variable across the patients in 
 the development set (missing value level) that could be imputed and lead to more accurate prediction. In this script, we have 
 pre-processed the development set data and split it randomly 100 times into training and validation set. Used four different 
 classifiers (Random Forest, Logistic Regression, Support Vector Machine and XGBoost) with increment of 5% missing value imputation.
  
-## RFE model: 
+## 3.RFE model building: 
 
 In figure 2B, we used a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, 
 we evaluated the performance of the four classification algorithms with different number of features selected from the full
 set of features. The average AUC scores from 100 runs of this process are shown here, along with error bars.
  
+## 4.Model Testing:
+
+
 ## Folder Figure 3: 
 
 Figure 3 script is self-descriptive. Here, we have plotted AUC curve based on optimum imputation features (17F) model and 
