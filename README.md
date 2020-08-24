@@ -32,7 +32,7 @@ To analyze your own data with this pipeline, a few variables have to be configur
 ## Testing the code
 1. Download the code by:
 
-	git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git
+       git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git
 
 2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
 
