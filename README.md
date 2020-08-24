@@ -34,9 +34,10 @@ To analyze your own data with this pipeline, a few variables have to be configur
 
 	git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git
 
-2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server))
+2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
 
-3. Run the whole notebook (by the fast forward like button ⏩ 	in the menu bar.
+
+3. Run the whole notebook (by the fast forward like button⏩  in the menu bar.)
 
 The default configuration is shown as below:
 
