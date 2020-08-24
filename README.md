@@ -43,9 +43,7 @@ To analyze your own data with this pipeline, a few variables have to be configur
 
 Anonymized electronic medical record (EMR) data from patients diagnosed with COVID-19 within the Mount Sinai Hospital System, New York, NY from March 9th through April 6th, 2020 were included in the study. On 6th April, 5051 COVID-19 positive patients treated at the Mount Sinai Health System, data split in training set and test set.
 
-## Pipeline
-Here is a short summary of the mechanism of our pipeline.
-
+## Pipeline Summary
 ### 1. Preprocessing
 This part is converting the raw data to be capable in the following steps:
 * Irrelevant columns defined in `[Preprocessing]columns_to_drop` of `config_diabetes.ini` will be dropped out. 
