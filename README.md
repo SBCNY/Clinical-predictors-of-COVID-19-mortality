@@ -1,6 +1,6 @@
 # Clinical predictors of COVID-19 mortality:
 
-The scripts in this repository is used to reproduce the results for ["Clinical predictors of COVID-19 mortality”](https://www.medrxiv.org/content/10.1101/2020.05.19.20103036v1), which is avaliable on MedRxiv now. 
+The jupyter notebook in this repository is used to reproduce the results for ["Clinical predictors of COVID-19 mortality”](https://www.medrxiv.org/content/10.1101/2020.05.19.20103036v1), which is avaliable on MedRxiv now. 
 
 To cite this paper:
 	
@@ -23,9 +23,22 @@ This project is developed in Jupyter Notebook environment. So the following are 
 ## Dataset:
 Due to privacy policy of Mount Sinai Hospital System, we cannot open the covid19 dataset to public. Instead, we are using a subset of public dataset: [UCI Diabetes](https://archive.ics.uci.edu/ml/datasets/diabetes+130-us+hospitals+for+years+1999-2008)
 
+	Beata Strack, Jonathan P. DeShazo, Chris Gennings, Juan L. Olmo, Sebastian Ventura, Krzysztof J. Cios, and John N. Clore, “Impact of HbA1c Measurement on Hospital Readmission Rates: Analysis of 70,000 Clinical Database Patient Records,” BioMed Research International, vol. 2014, Article ID 781670, 11 pages, 2014.
+
 ## Configuration
 
-To analyze your own data with this pipeline, a few variables have to be configured in `config_diabetes.ini`, (or your own configuration file, by editing the 1st line: `config_fn = 'config_diabetes.ini'` of the code cell under `Define filename of configuration and read configuration`). The default configuration is shown as below:
+To analyze your own data with this pipeline, a few variables have to be configured in `config_diabetes.ini`, (or your own configuration file, by editing the 1st line: `config_fn = 'config_diabetes.ini'` of the code cell under `Define filename of configuration and read configuration`). 
+
+## Testing the code
+1. Download the code by:
+
+	git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git
+
+2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server))
+
+3. Run the whole notebook (by the fast forward like button ⏩  in the menu bar.
+
+The default configuration is shown as below:
 
 	[FileIO]
 	# File path of your data
@@ -82,25 +95,6 @@ To analyze your own data with this pipeline, a few variables have to be configur
 	[Model_comparison]
 	# Number of subset feature to choose, a parameter for Section 3.2 and Section 4, if there is any update of this parameter, you can rerun the script from Section 3.2
 	number_of_subset_features = 6
-
-### Under the section of `[FileIO]`:
-
-`df_train` is the file containing the features of training data (not including the outcome/label), which is in csv format
-
-`df_test` is the file containing the features of testing data (not including the outcome/label), which is in csv format
-
-`y_train` is the file containing the outcome/label of training data, which is in csv format
-
-`y_test` is the file containing the outcome/label of testing data, which is in csv format
-
-`predicted_scores` is the filename you would like to output the prediction scores of testing data to, where the number of filenames should be equal to the testing data you put, and format in csv
-
-`rfe_result_csv` is the filename you would like to output the result of recursive feature elimination
-
-
-### Under the section of `[Continuous_feat]`:
-
-`continuous_feat` is the list of continuous feature(s), since we will impute the continuous feature and categorical feature in different way.
 
 ## COVID-19 Data: 
 
