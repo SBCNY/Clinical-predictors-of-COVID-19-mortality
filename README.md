@@ -30,14 +30,14 @@ Due to privacy policy of Mount Sinai Hospital System, we cannot open the covid19
 To analyze your own data with this pipeline, a few variables have to be configured in `config_diabetes.ini`, (or your own configuration file, by editing the 1st line: `config_fn = 'config_diabetes.ini'` of the code cell under `Define filename of configuration and read configuration`). 
 
 ## Testing the code
-1. Download the code by:
+* 1. Download the code by:
 
        git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git
 
-2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
+* 2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
 
 
-3. Run the whole notebook (by the fast forward like button⏩  in the toolbar.)
+* 3. Run the whole notebook (by the fast forward like button⏩  in the toolbar.)
 
 ## COVID-19 Data: 
 
