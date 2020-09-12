@@ -1,12 +1,11 @@
-# Clinical predictors of COVID-19 mortality:
-
-The jupyter notebook in this repository is used to reproduce the results for ["Clinical predictors of COVID-19 mortality”](https://www.medrxiv.org/content/10.1101/2020.05.19.20103036v1), which is avaliable on MedRxiv now. To cite this paper:
+The code for this artice (citation below) is provided as a jupyter notebook to enable users to apply our methodology to clinical datasets.
 
 Yadaw, A., Li, Y.C., Bose, S., Iyengar, R., Bunyavanich, S., & Pandey, G. 2020. Clinical predictors of COVID-19 mortality. medRxiv doi:10.1101/2020.05.19.20103036
-	
+
+The notebook as well as associated files have detailed embedded comments that should assist users in using this code.
     
-## Setup environments
-This project is developed in Jupyter Notebook environment. So the following are required:
+## Setup environment
+The following Python version and packages are required to execute this notebook:
 
 	Python 3.7.3
 	Pandas 0.24.2
@@ -18,26 +17,23 @@ This project is developed in Jupyter Notebook environment. So the following are 
 	xgboost 0.90
           
 	  
-## Dataset:
-Due to privacy policy of Mount Sinai Hospital System, we cannot open the covid19 dataset to public. Instead, we are using a subset of public dataset: [UCI Diabetes](https://archive.ics.uci.edu/ml/datasets/diabetes+130-us+hospitals+for+years+1999-2008). (B. Strack et al., “Impact of HbA1c Measurement on Hospital Readmission Rates: Analysis of 70,000 Clinical Database Patient Records,” BioMed Research International, vol. 2014, Article ID 781670, 11 pages, 2014.)
+## Sample data
+Due to IRB constraints, we are unable to publicly share the COVID-19 EHR dataset used in our study. Thus, as sample data to test our code, we are providing a randomly selected subset (5,000 patients; readmission/data/diabetics_small_set.csv) of the publicly available [Hospital readmission](https://archive.ics.uci.edu/ml/datasets/diabetes+130-us+hospitals+for+years+1999-2008) dataset, which is of a similar nature as our original dataset.
 
 ## Configuration
 
-To analyze your own data with this pipeline, a few variables have to be configured in `config_diabetes.ini`, (or your own configuration file, by editing the 1st line: `config_fn = 'config_diabetes.ini'` of the code cell under `Define filename of configuration and read configuration`). 
+<!--To analyze your own data with this pipeline, a few variables have to be configured in `config_diabetes.ini`, (or your own configuration file, by editing the 1st line: `config_fn = 'config_diabetes.ini'` of the code cell under `Define filename of configuration and read configuration`).-->
 
 ## Testing the code
-* 1. Download the code by:
+* Download the code by:
 		
 		`git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git`
 
-* 2. Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
+* Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
 
 
-* 3. Run the whole notebook (by the fast forward like button⏩  in the toolbar.)
+* Run the whole notebook (by the fast forward like button⏩  in the toolbar.)
 
-## COVID-19 Data: 
-
-Anonymized electronic medical record (EMR) data from patients diagnosed with COVID-19 within the Mount Sinai Hospital System, New York, NY from March 9th through April 6th, 2020 were included in the study. On 6th April, 5051 COVID-19 positive patients treated at the Mount Sinai Health System, data split in training set and test set.
 
 ## Pipeline Summary
 ### 1. Preprocessing
