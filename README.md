@@ -24,15 +24,17 @@ Due to IRB constraints, we are unable to publicly share the COVID-19 EHR dataset
 
 <!--To analyze your own data with this pipeline, a few variables have to be configured in `config_diabetes.ini`, (or your own configuration file, by editing the 1st line: `config_fn = 'config_diabetes.ini'` of the code cell under `Define filename of configuration and read configuration`).-->
 
-## Testing the code
-* Download the code by:
+EHR-derived datasets are generally a mix of continuous and categorical variables, both of which may contain missing values. Our code is designed for converting categorical variables into numerical ones using [label encoding] (https://towardsdatascience.com/categorical-encoding-using-label-encoding-and-one-hot-encoder-911ef77fb5bd). XXXXXX
+
+## Applying the code
+* Download the code using the download button or the command:
 		
-		`git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git`
+		git clone https://github.com/SBCNY/Clinical-predictors-of-COVID-19-mortality.git
 
 * Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
 
 
-* Run the whole notebook (by the fast forward like button⏩  in the toolbar.)
+* The notebook can be run using the fast forward like button⏩  in the toolbar for the hospital readmission dataset.
 
 
 ## Pipeline Summary
