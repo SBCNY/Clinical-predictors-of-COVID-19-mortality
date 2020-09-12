@@ -1,4 +1,4 @@
-The code for this artice (citation below) is provided as a jupyter notebook to enable users to apply our methodology to clinical datasets.
+The code for this article (citation below) is provided as a jupyter notebook to enable users to apply our methodology to clinical datasets.
 
 Yadaw, A., Li, Y.C., Bose, S., Iyengar, R., Bunyavanich, S., & Pandey, G. 2020. Clinical predictors of COVID-19 mortality. medRxiv doi:10.1101/2020.05.19.20103036
 
@@ -34,17 +34,26 @@ EHR-derived datasets are generally a mix of continuous and categorical variables
 * Start your jupyter notebook server ([Official tutorial](https://jupyter-notebook.readthedocs.io/en/stable/notebook.html#starting-the-notebook-server)) and open `Clinical_predictor_notebook.ipynb`.
 
 
-* The notebook can be run using the fast forward like button⏩  in the toolbar for the hospital readmission dataset.
+* The notebook can be run by using the fast forward like button⏩  in the toolbar for the hospital readmission dataset.
 
 
 ## Pipeline Summary
+### 0. Configuration
+The configuration file `config.ini` enables user to define variables (eg. filename, specific file path, outcome variable, etc.) outside the notebook.
+* The configuration file is separated into several sections: `[FileIO]`, `[Preprocessing]`, `[Continuous_feature]`, `[RFE]`, `[Model_comparison]`.
+  * `[FileIO]` contains file path of data, filename of data etc.
+  * `[Preprocessing]` contains variables need in preprocessing step.
+  * `[Continuous_feature]` contains a list of features, which you would like to consider as continuous feature, since we handle continuous and categorical features in different ways.
+  * `[RFE]` has two options of number of features being selected, more details are described in section 3 of this summary.
+  * `[Model_comparison]` contains the final number of top selected features you would like to include in the reduced model, which is defined as 6 for sample data.
+
 ### 1. Preprocessing
 This part is converting the raw data to be capable in the following steps:
-* Irrelevant columns defined in `[Preprocessing]columns_to_drop` of `config_diabetes.ini` will be dropped out. 
+* For columns irrelevant to the outcome, except patient ID, should be defined in `[Preprocessing]columns_to_drop` of `config.ini`, which will be dropped out in our analysis. (e.g. ID of medical insurance company, encounter). 
 * Column defined in `[Preprocessing]patient_id_column` is used as patient index, to remove duplicate patient entry. 
-* If you would like to keep only patients matching with a value of a column, you can define `keep_only_matched_patient_column` and `keep_only_matched_patient_value` (which are blanks under the configuration of this dataset). 
+* If you are only interested in particular groups of patients, like in our paper focusing on patients detected with COVID-19 only, you can define `keep_only_matched_patient_column` and `keep_only_matched_patient_value` (which are blanks under the configuration of readmission dataset). 
 * The outcome array will be pulled out, by the variable `outcome_column`, and binarized by matching the value of `outcome_pos_value` and `outcome_neg_value`  defined respectively in the configuration file. 
-* For the strings which are considered as missing value, can be defined `unknown_value`. We are also able to replace the value to desired value globally by dictionary defined in configuration by `value_replacing_dictionary`.
+* For the strings which are considered as missing values, can be defined in `unknown_value`. We are also able to replace the value to desired value globally by dictionary defined in configuration by `value_replacing_dictionary`.
  * After these steps, label encoding will be performed to categorical columns. Finally, the preprocessed dataset will be splited into training (development set)and testing set (80% and 20% respectively). 
 
 ### 2. Missing Value Imputation
