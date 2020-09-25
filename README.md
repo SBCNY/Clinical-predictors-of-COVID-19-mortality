@@ -1,8 +1,8 @@
 The code for this article (citation below) is provided as a jupyter notebook to enable users to apply our methodology to clinical datasets.
 
-Yadaw, A., Li, Y.C., Bose, S., Iyengar, R., Bunyavanich, S., & Pandey, G. 2020. Clinical predictors of COVID-19 mortality. medRxiv doi:10.1101/2020.05.19.20103036
+Yadaw, A., Li, Y.C., Bose, S., Iyengar, R., Bunyavanich, S., & Pandey, G. 2020. Clinical predictors of COVID-19 mortality. The Lancet Digital Health, 2(10):e516-e525, doi:https://doi.org/10.1016/S2589-7500(20)30217-X.
 
-The notebook as well as associated files have detailed embedded comments that should assist users in using this code.
+The notebook as well as associated files have detailed embedded comments that should assist users in using this code for their respective dataset/study.
     
 ## Setup environment
 The following Python version and packages are required to execute this notebook:
@@ -59,20 +59,20 @@ This part pre-processes the raw data through the following steps:
 
 ### 2. Missing Value Imputation
 
-* We first attempted to find the percentage of missing values in each variable across the patients in the development set (missing value level) that can be reliably imputed and lead to more accurate prediction. In this step, we split the development set data randomly 100 times into training and validation set for training and evaluating candidate classifiers at different missing value levels. Four classification algorithms (Random Forest, Logistic Regression, Support Vector Machine and XGBoost) are tested at increments of 5% missing value levels. The final performance is visualized at the bottom of this code block of the notebook, analogous to Figure 2A in our article.
+We first attempt to find the percentage of missing values in each variable across the patients in the development set (missing value level) that can be reliably imputed and lead to more accurate prediction. In this step, we split the development set data randomly 100 times into training and validation set for training and evaluating candidate classifiers at different missing value levels. Four classification algorithms (Random Forest, Logistic Regression, Support Vector Machine and XGBoost) are tested at increments of 5% missing value levels. The final performance can be visualized in a figure generated at the bottom of this code block of the notebook, analogous to Figure 2A in our article.
  
 ### 3. Feature selection using Recursive Feature Elimination (RFE) 
 
 * We use a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, to evaluate the performance of the four classification algorithms listed above with different number of features selected from the full set of features. 
 
 * The list of number of features can be defined in two ways in the configuration file: 
-  * a. `[RFE]number_of_feature_to_select`, which should be the list of numbers of features you wish to test, separated by `,`. If you are going to use this way, please set it to `ignore`
-  * b. `[RFE]step_size`, which should be a integer, as the step size of list from 1 to total number of features. If you are going to use this way, please set it to  `ignore`
+  * a. `[RFE]number_of_feature_to_select`, which should be the list of numbers of features you wish to test, separated by `,`. If you use this option, please set it to `ignore`.
+  * b. `[RFE]step_size`, which should be a integer, as the step size of list from 1 to total number of features. If you use this option, please set it to `ignore`.
 
 * The average AUC scores from 100 runs of this process, along with error bars, are shown in the figure at the bottom of this code block, analogous to Figure 2B in our article. 
  
 ### 4. Model Testing
-2 Models will be tested, namely the (XGBoost) classifier trained by full set of features, and the subset of features ('n' features selected by RFE, where 'n' is defined in `[Model_comparison]number_of_subset_features`.). The resultant ROC curve (and its AUC score) and calibration curve (and its slope and intercept) on the test set is generated at the bottom of this code block, generated plots analogous to figure 3 in our article.
+2 Models will be tested, namely the (XGBoost) classifier trained by full set of features, and the subset of features ('n' features selected by RFE, where 'n' is defined in `[Model_comparison]number_of_subset_features`.). The resultant ROC curve (and its AUC score) and calibration curve (and its slope and intercept) on the test set is generated at the bottom of this code block, generating plots analogous to those in Figure 3 in our article.
     
     
 ## Contact
