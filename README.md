@@ -24,7 +24,7 @@ Due to IRB constraints, we are unable to publicly share the COVID-19 EHR dataset
 
 <!--To analyze your own data with this pipeline, a few variables have to be configured in `config_diabetes.ini`, (or your own configuration file, by editing the 1st line: `config_fn = 'config_diabetes.ini'` of the code cell under `Define filename of configuration and read configuration`).-->
 
-EHR-derived datasets are generally a mix of continuous and categorical variables, both of which may contain missing values. Our code is designed for converting categorical variables into numerical ones using [label encoding] (https://towardsdatascience.com/categorical-encoding-using-label-encoding-and-one-hot-encoder-911ef77fb5bd). XXXXXX
+EHR-derived datasets are generally a mix of continuous and categorical variables, both of which may contain missing values. Our code is designed for converting categorical variables into numerical ones using [label encoding] (https://towardsdatascience.com/categorical-encoding-using-label-encoding-and-one-hot-encoder-911ef77fb5bd). These variables, as well as other necessary operations that need to be carried out before our methodology is applied, need to be specified in the config.ini file. A sample file for the example readmission dataset is provided in the repo. More details are provided in the summary of the various analysis steps below.
 
 ## Applying the code
 * Download the code using the download button or the command:
@@ -37,39 +37,43 @@ EHR-derived datasets are generally a mix of continuous and categorical variables
 * The notebook can be run by using the fast forward like button⏩  in the toolbar for the hospital readmission dataset.
 
 
-## Pipeline Summary
+## Pipeline (notebook) Summary
 ### 0. Configuration (before running the pipeline)
-The configuration file `config.ini` enables user to define variables (eg. filename, specific file path, outcome variable, etc.) outside the notebook.
+The configuration file `config.ini` enables the user to define variables (eg. filename, specific file path, outcome variable, etc.) outside the notebook.
 * The configuration file is separated into several sections: `[FileIO]`, `[Preprocessing]`, `[Continuous_feature]`, `[RFE]`, `[Model_comparison]`.
-  * `[FileIO]` contains file path of data, filename of data etc.
-  * `[Preprocessing]` contains variables need in preprocessing step.
-  * `[Continuous_feature]` contains a list of features, which you would like to consider as continuous feature, since we handle continuous and categorical features in different ways.
-  * `[RFE]` has two options of number of features being selected, more details are described in section 3 of this summary.
-  * `[Model_comparison]` contains the final number of top selected features you would like to include in the reduced model, which is defined as 6 for sample data.
+  * `[FileIO]` contains the path and filename of the data etc.
+  * `[Preprocessing]` contains the variables needed in the preprocessing steps.
+  * `[Continuous_feature]` contains the list of features that you would like to consider as continuous, since continuous and categorical features are handled in different ways in the analysis code.
+  * `[RFE]` has two options for the number of features to be selected. More details are provided in section 3 of this summary.
+  * `[Model_comparison]` contains the final number of top selected features you would like to include in the reduced model based on the results of the feature selection analysis. This is defined as 6 for the sample readmission data.
 
 ### 1. Preprocessing
-This part is converting the raw data to be capable in the following steps:
-* For columns irrelevant to the outcome, except patient ID, should be defined in `[Preprocessing]columns_to_drop` of `config.ini`, which will be dropped out in our analysis. (e.g. ID of medical insurance company, encounter). 
-* Column defined in `[Preprocessing]patient_id_column` is used as patient index, to remove duplicate patient entry. 
-* If you are only interested in particular groups of patients, like in our paper focusing on patients detected with COVID-19 only, you can define `keep_only_matched_patient_column` and `keep_only_matched_patient_value` (which are blanks under the configuration of readmission dataset). 
-* The outcome array will be pulled out, by the variable `outcome_column`, and binarized by matching the value of `outcome_pos_value` and `outcome_neg_value`  defined respectively in the configuration file. 
-* For the strings which are considered as missing values, can be defined in `unknown_value`. We are also able to replace the value to desired value globally by dictionary defined in configuration by `value_replacing_dictionary`.
- * After these steps, label encoding will be performed to categorical columns. Finally, the preprocessed dataset will be splited into training (development set)and testing set (80% and 20% respectively). 
+This part pre-processes the raw data through the following steps:
+* For columns irrelevant to the outcome, except patient ID, should be defined in `[Preprocessing]columns_to_drop` of `config.ini`, which will be dropped out in our analysis (e.g. ID of medical insurance company). 
+* The column defined in `[Preprocessing]patient_id_column` is used as the patient index, which is used in turn to remove duplicate patient entries. 
+* If you are only interested in particular groups of patients, like in our paper focusing on patients detected with COVID-19 only, you can define `keep_only_matched_patient_column` and `keep_only_matched_patient_value` (which are blanks in the configuration file of the readmission dataset). 
+* The outcome array will be pulled from the variable `outcome_column`, and binarized by matching the value of `outcome_pos_value` and `outcome_neg_value`  defined respectively in the configuration file. 
+* The strings that denote missing values can be defined in the `unknown_value` variable in the configuration value. We are also able to replace the value to desired value globally by dictionary defined in configuration by `value_replacing_dictionary`.
+* After these steps, label encoding will be applied to the categorical columns. 
+* Finally, the preprocessed dataset will be splited into the development and test sets in a 75:25 ratio. 
 
 ### 2. Missing Value Imputation
 
-* We have first attempted to find the optimal percentage of missing values in each variable across the patients in the development set (missing value level) that could be imputed and lead to more accurate prediction. In this step, we have pre-processed the development set data and split it randomly 100 times into training and validation set. Used four different classifiers (Random Forest, Logistic Regression, Support Vector Machine and XGBoost) with increment of 5% missing value imputation. The performance is visualized at the bottom of the notebook (figure 2A)
+* We first attempted to find the percentage of missing values in each variable across the patients in the development set (missing value level) that can be reliably imputed and lead to more accurate prediction. In this step, we split the development set data randomly 100 times into training and validation set for training and evaluating candidate classifiers at different missing value levels. Four classification algorithms (Random Forest, Logistic Regression, Support Vector Machine and XGBoost) are tested at increments of 5% missing value levels. The final performance is visualized at the bottom of this code block of the notebook, analogous to Figure 2A in our article.
  
-### 3. Recursive Feature Elimination (RFE) model building 
+### 3. Feature selection using Recursive Feature Elimination (RFE) 
 
-* We used a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, we evaluated the performance of the four classification algorithms with different number of features selected from the full set of features. 
+* We use a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, to evaluate the performance of the four classification algorithms listed above with different number of features selected from the full set of features. 
 
-* The list of number of features can be defined in two ways: 
-  * a. `[RFE]number_of_feature_to_select` which should be a list of number, separated by `,`. If you are going to use this way, please set it to be `ignore`
-  * b. `[RFE]step_size` which should be a integer, as the step size of list from 1 to total number of features. If you are going to use this way, please set it to be `ignore`
+* The list of number of features can be defined in two ways in the configuration file: 
+  * a. `[RFE]number_of_feature_to_select`, which should be the list of numbers of features you wish to test, separated by `,`. If you are going to use this way, please set it to `ignore`
+  * b. `[RFE]step_size`, which should be a integer, as the step size of list from 1 to total number of features. If you are going to use this way, please set it to  `ignore`
 
-* The average AUC scores from 100 runs of this process are shown in figure 2B, along with error bars. 
+* The average AUC scores from 100 runs of this process, along with error bars, are shown in the figure at the bottom of this code block, analogous to Figure 2B in our article. 
  
 ### 4. Model Testing
-2 Models will be tested, the (XGBoost) classifier trained by full set of features, and the subset of features ('n' features selected by RFE, where 'n' is defined in `[Model_comparison]number_of_subset_features`.) ROC curve (and its AUC) and calibration curve of testing set can be visualized in figure 3.
+2 Models will be tested, namely the (XGBoost) classifier trained by full set of features, and the subset of features ('n' features selected by RFE, where 'n' is defined in `[Model_comparison]number_of_subset_features`.). The resultant ROC curve (and its AUC score) and calibration curve (and its slope and intercept) on the test set is generated at the bottom of this code block, generated plots analogous to figure 3 in our article.
     
+    
+## Contact
+In case of issues with the code, please let us know through the Issues functionality and/or contact Arjun S. Yadaw (arjun.yadaw@mssm.edu), Yan-chak Li (yan-chak.li@mssm.edu) and Gaurav Pandey (gaurav.pandey@mssm.ed(.
