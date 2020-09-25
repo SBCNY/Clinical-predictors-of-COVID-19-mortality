@@ -66,8 +66,8 @@ We first attempt to find the percentage of missing values in each variable acros
 * We use a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, to evaluate the performance of the four classification algorithms listed above with different number of features selected from the full set of features. 
 
 * The list of number of features can be defined in two ways in the configuration file: 
-  * a. `[RFE]number_of_feature_to_select`, which should be the list of numbers of features you wish to test, separated by `,`. If you use this option, please set it to `ignore`.
-  * b. `[RFE]step_size`, which should be a integer, as the step size of list from 1 to total number of features. If you use this option, please set it to `ignore`.
+  * a. `[RFE]number_of_feature_to_select`, which should be the list of numbers of features you wish to test, separated by `,`. If you are not using this option, please set it to `ignore`.
+  * b. `[RFE]step_size`, which should be a integer, as the step size of list from 1 to total number of features. If you are not using this option, please set it to `ignore`.
 
 * The average AUC scores from 100 runs of this process, along with error bars, are shown in the figure at the bottom of this code block, analogous to Figure 2B in our article. 
  
