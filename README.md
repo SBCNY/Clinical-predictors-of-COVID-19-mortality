@@ -47,8 +47,8 @@ The configuration file `config.ini` enables the user to define variables (eg. fi
 
 ### 1. Pre-processing
 This part pre-processes the raw data through the following steps:
-* For columns irrelevant to the outcome, except patient ID, should be defined in `[Preprocessing]columns_to_drop` of `config.ini`, which will be dropped out in our analysis (e.g. ID of medical insurance company). 
-* The column defined in `[Preprocessing]patient_id_column` is used as the patient index, which is used in turn to remove duplicate patient entries. 
+* For columns irrelevant to the outcome, except patient ID, should be defined in `[Pre-processing]columns_to_drop` of `config.ini`, which will be dropped out in our analysis (e.g. ID of medical insurance company). 
+* The column defined in `[Pre-processing]patient_id_column` is used as the patient index, which is used in turn to remove duplicate patient entries. 
 * If you are only interested in particular groups of patients, like in our paper focusing on patients detected with COVID-19 only, you can define `keep_only_matched_patient_column` and `keep_only_matched_patient_value` (which are blanks in the configuration file of the readmission dataset). 
 * The outcome array will be pulled from the variable `outcome_column`, and binarized by matching the value of `outcome_pos_value` and `outcome_neg_value`  defined respectively in the configuration file. 
 * The strings that denote missing values can be defined in the `unknown_value` variable in the configuration value. We are also able to replace the value to desired value globally by dictionary defined in configuration by `value_replacing_dictionary`.
