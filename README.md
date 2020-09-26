@@ -65,14 +65,12 @@ We first attempt to find the percentage of missing values in each variable acros
 
 * We use a setup analogous to missing value imputation, and the Recursive Feature Elimination (RFE) algorithm, to evaluate the performance of the four classification algorithms listed above with different number of features selected from the full set of features. 
 
-* The list of number of features can be defined in two ways in the configuration file: 
-  * a. `[RFE]number_of_feature_to_select`, which should be the list of numbers of features you wish to test, separated by `,`. If you are not using this option, please set it to `ignore`.
-  * b. `[RFE]step_size`, which should be a integer, as the step size of list from 1 to total number of features. If you are not using this option, please set it to `ignore`.
-
 * The average AUC scores from 100 runs of this process, along with error bars, are shown in the figure at the bottom of this code block, analogous to Figure 2B in our article. 
+
+* This block also generates a figure similar to Figure 4A in our article, namely the features most frequently selected by each classification algorithm.
  
 ### 4. Model Testing
-2 Models will be tested, namely the (XGBoost) classifier trained by full set of features, and the subset of features ('n' features selected by RFE, where 'n' is defined in `[Model_comparison]number_of_subset_features`.). The resultant ROC curve (and its AUC score) and calibration curve (and its slope and intercept) on the test set is generated at the bottom of this code block, generating plots analogous to those in Figure 3 in our article.
+Two models, namely the (XGBoost) classifier trained by full set of features, and the subset of features that yields the best prediction performance, determined from the results/plots from the missing value imputation and feature selection analyses, will be evaluated on the test set generated from the original dataset. Both the classifier and the feature subset can be easily modified in the code. The resultant ROC curve (and its AUC score) and calibration curve (and its slope and intercept) on the test set is generated at the bottom of this code block, analogous to those in Figure 3 in our article.
     
     
 ## Contact
