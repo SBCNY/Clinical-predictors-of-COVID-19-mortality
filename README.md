@@ -76,4 +76,4 @@ We first attempt to find the percentage of missing values in each variable acros
     
     
 ## Contact
-In case of issues with the code, please let us know through the Issues functionality and/or contact Arjun S. Yadaw (arjun.yadaw@mssm.edu), Yan-chak Li (yan-chak.li@mssm.edu) and Gaurav Pandey (gaurav.pandey@mssm.ed(.
+In case of issues with the code, please let us know through the Issues functionality and/or contact Arjun S. Yadaw (arjun.yadaw@mssm.edu), Yan-chak Li (yan-chak.li@mssm.edu) and Gaurav Pandey (gaurav.pandey@mssm.edu).
