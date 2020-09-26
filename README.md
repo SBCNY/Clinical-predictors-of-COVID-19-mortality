@@ -40,7 +40,7 @@ EHR-derived datasets are generally a mix of continuous and categorical variables
 ## Pipeline (notebook) Summary
 ### 0. Configuration (before running the pipeline)
 The configuration file `config.ini` enables the user to define variables (eg. filename, specific file path, outcome variable, etc.) outside the notebook.
-* The configuration file is separated into several sections: `[FileIO]`, `[Preprocessing]`, `[Continuous_feature]`, `[RFE]`, `[Model_comparison]`.
+* The configuration file is separated into several sections: `[FileIO]`, `[Pre-processing]`, `[Continuous_feature]`, `[RFE]`, `[Model_comparison]`.
   * `[FileIO]` contains the path and filename of the data etc.
   * `[Pre-processing]` contains the variables needed in the preprocessing steps.
   * `[Continuous_feature]` contains the list of features that you would like to consider as continuous, since continuous and categorical features are handled in different ways in the analysis code.
